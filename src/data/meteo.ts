@@ -34,7 +34,13 @@ export const REGIONS: Region[] = [
     center: 'Москва',
     map: 'https://cdn.poehali.dev/projects/343215aa-5f78-4f68-9c4c-1d9e7ed1cc43/bucket/8bd1ed97-e47b-4808-88fc-63226448ba91.png',
   },
-  { id: 'ufo', name: 'ЮФО', full: 'Южный ФО', center: 'Ростов-на-Дону' },
+  {
+    id: 'ufo',
+    name: 'ЮФО',
+    full: 'Южный ФО',
+    center: 'Ростов-на-Дону',
+    map: 'https://cdn.poehali.dev/projects/343215aa-5f78-4f68-9c4c-1d9e7ed1cc43/files/74bd156e-9f8f-4bfd-b6d4-6d15944e04ee.jpg',
+  },
   { id: 'skfo', name: 'СКФО', full: 'Северо-Кавказский ФО', center: 'Пятигорск' },
   { id: 'urfo', name: 'УФО', full: 'Уральский ФО', center: 'Екатеринбург' },
 ];
