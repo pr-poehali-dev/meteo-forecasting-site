@@ -41,8 +41,20 @@ export const REGIONS: Region[] = [
     center: 'Ростов-на-Дону',
     map: 'https://cdn.poehali.dev/projects/343215aa-5f78-4f68-9c4c-1d9e7ed1cc43/files/74bd156e-9f8f-4bfd-b6d4-6d15944e04ee.jpg',
   },
-  { id: 'skfo', name: 'СКФО', full: 'Северо-Кавказский ФО', center: 'Пятигорск' },
-  { id: 'urfo', name: 'УФО', full: 'Уральский ФО', center: 'Екатеринбург' },
+  {
+    id: 'skfo',
+    name: 'СКФО',
+    full: 'Северо-Кавказский ФО',
+    center: 'Пятигорск',
+    map: 'https://cdn.poehali.dev/projects/343215aa-5f78-4f68-9c4c-1d9e7ed1cc43/files/1d1c1add-2ccb-455f-a1ff-3a04f5d5d24b.jpg',
+  },
+  {
+    id: 'urfo',
+    name: 'УФО',
+    full: 'Уральский ФО',
+    center: 'Екатеринбург',
+    map: 'https://cdn.poehali.dev/projects/343215aa-5f78-4f68-9c4c-1d9e7ed1cc43/files/8a335526-e5a1-48ce-a510-acde668d8c15.jpg',
+  },
 ];
 
 export const LAYERS: MeteoLayer[] = [
