@@ -23,10 +23,17 @@ export interface Region {
   name: string;
   full: string;
   center: string;
+  map?: string;
 }
 
 export const REGIONS: Region[] = [
-  { id: 'cfo', name: 'ЦФО', full: 'Центральный ФО', center: 'Москва' },
+  {
+    id: 'cfo',
+    name: 'ЦФО',
+    full: 'Центральный ФО',
+    center: 'Москва',
+    map: 'https://cdn.poehali.dev/projects/343215aa-5f78-4f68-9c4c-1d9e7ed1cc43/bucket/8bd1ed97-e47b-4808-88fc-63226448ba91.png',
+  },
   { id: 'ufo', name: 'ЮФО', full: 'Южный ФО', center: 'Ростов-на-Дону' },
   { id: 'skfo', name: 'СКФО', full: 'Северо-Кавказский ФО', center: 'Пятигорск' },
   { id: 'urfo', name: 'УФО', full: 'Уральский ФО', center: 'Екатеринбург' },

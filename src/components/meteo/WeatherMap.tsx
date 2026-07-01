@@ -52,39 +52,75 @@ const WeatherMap = ({ layer, region, frame, className }: WeatherMapProps) => {
     return layer.legend[idx].color;
   };
 
+  const hasMap = Boolean(region.map);
+
+  const dataField = (
+    <div
+      className="absolute inset-0 grid gap-0"
+      style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)`, gridTemplateRows: `repeat(${ROWS}, 1fr)` }}
+    >
+      {cells.map((c) => (
+        <div
+          key={c.i}
+          style={{
+            background: colorAt(c.v),
+            opacity: c.v < 0.06 ? 0 : (hasMap ? 0.55 + c.v * 0.4 : 0.42 + c.v * 0.5),
+            filter: 'blur(0.5px)',
+            transition: 'background 0.5s ease, opacity 0.5s ease',
+          }}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <div className={`relative overflow-hidden rounded-lg bg-[#0a1420] scanline ${className ?? ''}`}>
       {/* координатная сетка */}
       <div className="absolute inset-0 grid-texture opacity-60" />
 
-      {/* поле данных */}
-      <div
-        className="absolute inset-0 grid gap-0"
-        style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)`, gridTemplateRows: `repeat(${ROWS}, 1fr)` }}
-      >
-        {cells.map((c) => (
+      {hasMap ? (
+        <>
+          {/* поле данных, обрезанное по силуэту региона через маску-изображение */}
           <div
-            key={c.i}
+            className="absolute inset-0"
             style={{
-              background: colorAt(c.v),
-              opacity: c.v < 0.06 ? 0 : 0.42 + c.v * 0.5,
-              filter: 'blur(0.5px)',
-              transition: 'background 0.5s ease, opacity 0.5s ease',
+              WebkitMaskImage: `url(${region.map})`,
+              maskImage: `url(${region.map})`,
+              WebkitMaskSize: 'contain',
+              maskSize: 'contain',
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskPosition: 'center',
+              maskPosition: 'center',
             }}
-          />
-        ))}
-      </div>
+          >
+            <div className="absolute inset-0 bg-[#0f2036]" />
+            {dataField}
+          </div>
 
-      {/* контур региона (стилизованная рамка) */}
-      <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-        <path
-          d="M8,20 L34,10 L62,14 L88,26 L92,58 L74,86 L40,92 L14,74 L6,46 Z"
-          fill="none"
-          stroke="hsl(190 95% 55% / 0.55)"
-          strokeWidth="0.6"
-          strokeDasharray="2 1.4"
-        />
-      </svg>
+          {/* контур областей ЦФО поверх данных */}
+          <img
+            src={region.map}
+            alt={region.full}
+            className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-90"
+            style={{ filter: 'invert(1) brightness(1.6) contrast(1.2)', mixBlendMode: 'screen' }}
+          />
+        </>
+      ) : (
+        <>
+          {dataField}
+          {/* контур региона (стилизованная рамка) */}
+          <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <path
+              d="M8,20 L34,10 L62,14 L88,26 L92,58 L74,86 L40,92 L14,74 L6,46 Z"
+              fill="none"
+              stroke="hsl(190 95% 55% / 0.55)"
+              strokeWidth="0.6"
+              strokeDasharray="2 1.4"
+            />
+          </svg>
+        </>
+      )}
 
       {/* метки координат */}
       <div className="pointer-events-none absolute left-2 top-2 font-mono-data text-[10px] tracking-widest text-primary/70">
